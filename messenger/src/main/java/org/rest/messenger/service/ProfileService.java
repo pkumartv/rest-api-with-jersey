@@ -42,11 +42,7 @@ public class ProfileService {
     }
 
     public Profile deleteProfile(String profileName){
-        profiles.size();
-        Profile temp = profiles.remove(profileName);
-        profiles.size();
-        return temp;
-        //return profiles.remove(profileName);
+        return profiles.remove(profileName);
     }
     
 }
