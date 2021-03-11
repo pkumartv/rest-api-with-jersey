@@ -18,38 +18,37 @@ import org.rest.messenger.service.MessageService;
 @Path("messages")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class MessageResource{
+public class MessageResource {
 
-    MessageService messageService= new MessageService();
+    MessageService messageService = new MessageService();
 
     @GET
-    public List<Message> getMessages(){
+    public List<Message> getMessages() {
         return messageService.getAllMessages();
     }
 
     @GET
     @Path("/{messageId}")
-    public Message test(@PathParam("messageId") long id){
-        Message message= messageService.getMessage(id);
+    public Message test(@PathParam("messageId") long id) {
+        Message message = messageService.getMessage(id);
         return message;
     }
 
     @POST
-    public Message addMessage(Message message){
+    public Message addMessage(Message message) {
         return messageService.addMessage(message);
     }
 
     @PUT
     @Path("/{messageId}")
-    public Message updateMessage(@PathParam("messageId") long id,Message message){
+    public Message updateMessage(@PathParam("messageId") long id, Message message) {
         message.setId(id);
         return messageService.updateMessage(message);
     }
 
-
     @DELETE
     @Path("/{messageId}")
-    public Message deleteMessage(@PathParam("messageId") long id){
+    public Message deleteMessage(@PathParam("messageId") long id) {
         return messageService.removeMessage(id);
     }
 }
