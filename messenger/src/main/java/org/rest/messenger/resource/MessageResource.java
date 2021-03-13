@@ -16,7 +16,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.Status;
 
 import org.rest.messenger.model.Message;
 import org.rest.messenger.resource.beans.MessageFilterBean;
@@ -35,7 +34,7 @@ public class MessageResource {
         if(filter.getYear() > 0){
             return messageService.getAllMessagesForYear(filter.getYear());            
         }
-        if(filter.getStart() >= 0 && filter.getSize() >= 0)
+        if(filter.getStart() > 0 && filter.getSize() >0)
             return messageService.getAllMessagesPaginated(filter.getStart(), filter.getSize());
         
             return messageService.getAllMessages();
