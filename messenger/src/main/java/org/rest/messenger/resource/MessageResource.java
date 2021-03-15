@@ -23,13 +23,15 @@ import org.rest.messenger.service.MessageService;
 
 @Path("messages")
 @Consumes(MediaType.APPLICATION_JSON)
+//@Produces(value= {MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 @Produces(MediaType.APPLICATION_JSON)
 public class MessageResource {
 
     MessageService messageService = new MessageService();
 
     @GET
-    public List<Message> getMessages(@BeanParam MessageFilterBean filter) 
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Message> getJsonMessages(@BeanParam MessageFilterBean filter) 
     {
         if(filter.getYear() > 0){
             return messageService.getAllMessagesForYear(filter.getYear());            
@@ -40,6 +42,20 @@ public class MessageResource {
             return messageService.getAllMessages();
     }
 
+
+
+    @GET
+    @Produces(MediaType.TEXT_XML)
+    public List<Message> getXmlMessages(@BeanParam MessageFilterBean filter) 
+    {
+        if(filter.getYear() > 0){
+            return messageService.getAllMessagesForYear(filter.getYear());            
+        }
+        if(filter.getStart() > 0 && filter.getSize() >0)
+            return messageService.getAllMessagesPaginated(filter.getStart(), filter.getSize());
+        
+            return messageService.getAllMessages();
+    }
     @GET
     @Path("/{messageId}")
     public Message getMessage(@PathParam("messageId") long id,@Context UriInfo uriInfo){
